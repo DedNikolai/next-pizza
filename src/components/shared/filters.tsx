@@ -1,3 +1,5 @@
+'use client'
+
 import { cn } from "@/lib/utils";
 import { FC } from "react";
 import { Title } from "./title";
@@ -5,12 +7,15 @@ import { FilterCheckbox } from "./filter-checkbox";
 import { Input } from "../ui";
 import { RangeSlider } from "./range-slider";
 import { CheckboxFiltersGroup } from "./checkbox-filters-group";
+import { useFilterIngredients } from "@/app/hooks/useFilterIngredients";
 
 interface Props {
     className?: string
 }
 
 export const Filters: FC<Props> = ({className}) => {
+    const {ingredients, loading, onAddId, selectedIds} = useFilterIngredients();
+    const items = ingredients.map((item) => ({ value: String(item.id), text: item.name }));
     return (
         <div className={cn('', className)}>
             <Title text="Filters" size="sm" className="mb-5 font-bold"/>
@@ -35,76 +40,11 @@ export const Filters: FC<Props> = ({className}) => {
                 title="Components"
                 className="mt-5"
                 limit={6}
-                defaultItems={[
-                    {
-                        text: 'Item 1',
-                        value: '1'
-                    },
-                    {
-                        text: 'Item 2',
-                        value: '2'
-                    },
-                    {
-                        text: 'Item 3',
-                        value: '3'
-                    },
-                    {
-                        text: 'Item 4',
-                        value: '4'
-                    },
-                    {
-                        text: 'Item 5',
-                        value: '5'
-                    },
-                    {
-                        text: 'Item 6',
-                        value: '6'
-                    },
-                    {
-                        text: 'Item 7',
-                        value: '7'
-                    },
-                    {
-                        text: 'Item 8',
-                        value: '8'
-                    },
-                
-                ]} 
-                items={[
-                    {
-                        text: 'Item 1',
-                        value: '1'
-                    },
-                    {
-                        text: 'Item 2',
-                        value: '2'
-                    },
-                    {
-                        text: 'Item 3',
-                        value: '3'
-                    },
-                    {
-                        text: 'Item 4',
-                        value: '4'
-                    },
-                    {
-                        text: 'Item 5',
-                        value: '5'
-                    },
-                    {
-                        text: 'Item 6',
-                        value: '6'
-                    },
-                    {
-                        text: 'Item 7',
-                        value: '7'
-                    },
-                    {
-                        text: 'Item 8',
-                        value: '8'
-                    },
-                
-                ]}   
+                defaultItems={items.slice(0, 6)} 
+                items={items}   
+                loading={loading}
+                onClickCheckbox={onAddId}
+                selectedIds={selectedIds}
             />
         </div>
     )

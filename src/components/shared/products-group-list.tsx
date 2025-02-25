@@ -22,6 +22,7 @@ export const ProductsGroupList: FC<Props> = ({
     }) => {
     const setActiveCategoryId = useCategoryStore(state => state.setActiveId);  
     const intersectionRef = useRef<HTMLElement>(null);
+    // @ts-ignore
     const intersection = useIntersection(intersectionRef, {
         threshold: 0.4,
         root: null,
