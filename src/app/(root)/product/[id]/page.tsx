@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 import { prisma } from "../../../../../prisma/prisma-client"
-import { Container, GroupVariants, ProductImage, Title } from "@/shared/components/shared";
+import { Container, GroupVariants, PizzaImage, Title } from "@/shared/components/shared";
 
 export default async function ProductPage({ params: { id } }: { params: { id: string } }) {
     const product = await prisma.product.findFirst({where: {
@@ -14,7 +14,7 @@ export default async function ProductPage({ params: { id } }: { params: { id: st
     return (
         <Container className="flex my-10">
             <div className="flex flex-1">
-                <ProductImage imageUrl={product.imageUrl} size={40}/>
+                <PizzaImage imageUrl={product.imageUrl} size={40}/>
             </div>
             <div className="w-[490px bg-[#FCFCFC] p-7">
                 <Title text={product.name} size='md' className="font-extrabold md-1"/>

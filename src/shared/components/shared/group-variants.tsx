@@ -5,7 +5,7 @@ import React from 'react';
 
 export type Variant = {
   name: string;
-  value: string;
+  value?: string;
   disabled?: boolean;
 };
 
