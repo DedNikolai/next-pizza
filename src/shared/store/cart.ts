@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { Api } from "../services/api-client";
 import { getCartDetails } from "../lib";
+import { CreateCartItemValues } from "../services/dto/cart-dto";
 
 export type CartStateItem = {
     id: number;
@@ -9,7 +10,7 @@ export type CartStateItem = {
     imageUrl: string;
     price: number;
     pizzaSize?: number | null;
-    type?: number | null;
+    pizzaType?: number | null;
     ingredients: Array<{name: string, price: number}>
 }
 
@@ -75,5 +76,16 @@ export interface CartState {
           set({ loading: false });
         }
       },
-    addCartItem: async (values: any) => {}
+    addCartItem: async (values: CreateCartItemValues) => {
+        try {
+          set({ loading: true, error: false });
+          const data = await Api.cart.addCartItem(values);
+          set(getCartDetails(data));
+        } catch (error) {
+          console.error(error);
+          set({ error: true });
+        } finally {
+          set({ loading: false });
+        }
+      },
   }))

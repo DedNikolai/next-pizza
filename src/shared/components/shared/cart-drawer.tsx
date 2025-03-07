@@ -34,6 +34,7 @@ export const CartDrawer: FC<React.PropsWithChildren> = ({children}) => {
     useEffect(() => {
         fetchCartItems();
     }, [])
+
     return (
         <Sheet>
             <SheetTrigger asChild>{children}</SheetTrigger>
@@ -52,7 +53,7 @@ export const CartDrawer: FC<React.PropsWithChildren> = ({children}) => {
                                     imageUrl={item.imageUrl} 
                                     details={getCartItemDetails(
                                         item.ingredients,
-                                        item.type  as PizzaType,
+                                        item.pizzaType as PizzaType,
                                         item.pizzaSize as PizzaSize,
                                       )} 
                                     name={item.name} 
