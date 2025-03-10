@@ -15,9 +15,10 @@ import { usePizzaOptions } from '@/shared/hooks';
 interface Props {
   imageUrl: string;
   name: string;
-  onClickAdd?: VoidFunction;  
+  onSubmit?: VoidFunction;
   className?: string;
   price: number;
+  loading: boolean
 }
 
 /**
@@ -26,9 +27,10 @@ interface Props {
 export const ChooseProductForm: React.FC<Props> = ({
   name,
   imageUrl,
-  onClickAdd,
+  onSubmit,
   className,
-  price
+  price,
+  loading
 }) => {
   // const {
   //   size,
@@ -92,8 +94,8 @@ export const ChooseProductForm: React.FC<Props> = ({
         </div> */}
 
         <Button
-        //   loading={loading}
-          onClick={onClickAdd}
+          loading={loading}
+          onClick={() => onSubmit?.()}
           className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10">
           Add to Cart {price} $
         </Button>

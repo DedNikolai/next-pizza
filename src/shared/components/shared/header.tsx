@@ -3,7 +3,7 @@ import { FC } from "react"
 import { Container } from "./container"
 import Image from "next/image"
 import {Button} from '../ui';
-import { ArrowBigRight, ArrowRight, ShoppingCart, User } from "lucide-react";
+import { User } from "lucide-react";
 import Link from "next/link";
 import { SearchInput } from "./search-input";
 import { CartButton } from "./cart-button";

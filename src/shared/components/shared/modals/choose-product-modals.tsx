@@ -10,6 +10,7 @@ import { ChoosePizzaForm } from '../choose-pizza-form';
 import { useCartStore } from '@/shared/store/cart';
 import { useShallow } from 'zustand/shallow';
 import toast from 'react-hot-toast';
+import React from 'react';
 
 
 interface Props {
@@ -21,26 +22,27 @@ export const ChooseProductModal: React.FC<Props> = ({ className, product }) => {
   const router = useRouter();
   const firstItem = product.items[0];
   const isPizzaForm = Boolean(product.items[0].pizzaType);
-   const [addCartItem] = useCartStore(useShallow(state => [
-          state.addCartItem
+  const [addCartItem, loading] = useCartStore(useShallow(state => [
+          state.addCartItem,
+          state.loading
       ],));
 
-  const onAddProduct = () => {
-    addCartItem({productItemId: firstItem.id})
-  }
-
-  const onAddPizza = async (productItemId: number, ingredients: number[]) => {
+  const onSubmit = async (productItemId?: number, ingredients?: number[]) => {
     try {
-     await addCartItem({
-        productItemId,
+      const itemId = productItemId ?? firstItem.id;
+
+      await addCartItem({
+        productItemId: itemId,
         ingredients
       })
-      toast.success('Product add successfully')
+
+      toast.success('Product add successfully');
+      router.back();
     } catch(error){
-      console.error(error)
-      toast.error('Cant add product to cart')
+        console.error(error)
+        toast.error('Cant add product to cart')
+      }
     }
-  } 
 
   return (
     <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
@@ -56,13 +58,15 @@ export const ChooseProductModal: React.FC<Props> = ({ className, product }) => {
               name={product.name} 
               ingredients={product.ingredients}
               items={product.items}
-              onSubmit={onAddPizza}
+              onSubmit={onSubmit}
+              loading={loading}
             /> :
             <ChooseProductForm 
               imageUrl={product.imageUrl} 
               name={product.name}
-              onClickAdd={onAddProduct} 
+              onSubmit={onSubmit} 
               price={firstItem.price}
+              loading={loading}
             />
           }
       </DialogContent>
