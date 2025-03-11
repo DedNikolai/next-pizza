@@ -1,42 +1,33 @@
-import { notFound } from "next/navigation"
-import { prisma } from "../../../../../prisma/prisma-client"
-import { Container, GroupVariants, PizzaImage, Title } from "@/shared/components/shared";
+import { Container } from '@/shared/components/shared';
+import { ProductForm } from '@/shared/components/shared/product-form';
+import { notFound } from 'next/navigation';
+import { prisma } from '../../../../../prisma/prisma-client';
 
 export default async function ProductPage({ params: { id } }: { params: { id: string } }) {
-    const product = await prisma.product.findFirst({where: {
-        id: Number(id)
-    }})
+  const product = await prisma.product.findFirst({
+    where: { id: Number(id) },
+    include: {
+      ingredients: true,
+      category: {
+        include: {
+          products: {
+            include: {
+              items: true,
+            },
+          },
+        },
+      },
+      items: true,
+    },
+  });
 
-    if (!product) {
-        return notFound();
-    }
+  if (!product) {
+    return notFound();
+  }
 
-    return (
-        <Container className="flex my-10">
-            <div className="flex flex-1">
-                <PizzaImage imageUrl={product.imageUrl} size={40}/>
-            </div>
-            <div className="w-[490px bg-[#FCFCFC] p-7">
-                <Title text={product.name} size='md' className="font-extrabold md-1"/>
-                <p className="text-grey-400">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
-                <GroupVariants
-                     
-                    items={[
-                        {
-                            name: 'Small',
-                            value: '1',
-                        },
-                        {
-                            name: 'Medium',
-                            value: '2'
-                        },
-                        {
-                            name: 'Big',
-                            value: '3',
-                            disabled: true
-                        }
-                    ]}/>
-            </div>
-        </Container>
-    )
+  return (
+    <Container className="flex flex-col my-10">
+      <ProductForm product={product} />
+    </Container>
+  );
 }
