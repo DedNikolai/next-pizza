@@ -19,3 +19,4 @@ import {ChoosePizzaForm} from './choose-pizza-form';
 import {IngredientItem} from './ingredient-item';
 import {CartButton} from './cart-button';
 import {CartDrawer} from './cart-drawer';
+import {WhiteBlock} from './white-block';
