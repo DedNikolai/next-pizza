@@ -15,7 +15,7 @@ interface Props {
 
 export const ProductForm: React.FC<Props> = ({ product, onSubmit: _onSubmit }) => {
   const [addCartItem, loading] = useCartStore(useShallow((state) => [state.addCartItem, state.loading]),);
-
+  console.log(loading)
   const firstItem = product.items[0];
   const isPizzaForm = Boolean(firstItem.pizzaType);
 

@@ -42,7 +42,8 @@ export const Header: FC<Props> = ({className, hasCart, hasSearch    }) => {
                     >
                         <User size={16}/> SignIn
                     </Button>
-                    {hasCart && <CartButton />}
+                    {/* {hasCart && <CartButton />} */}
+                    <CartButton />
                 </div>
             </Container>
         </header>

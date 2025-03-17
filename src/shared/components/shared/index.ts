@@ -20,3 +20,5 @@ import {IngredientItem} from './ingredient-item';
 import {CartButton} from './cart-button';
 import {CartDrawer} from './cart-drawer';
 import {WhiteBlock} from './white-block';
+import {CheckoutItem} from './checkout-item';
+import {CheckoutItemSkeleton} from './checkout-item-skeleton';

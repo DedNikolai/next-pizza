@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useState } from "react";
 import Image from 'next/image';
 import {
     Sheet,
@@ -14,29 +14,19 @@ import { Button } from "../ui";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { CartDrawerItem } from "./cart-drawer-item";
 import { getCartItemDetails } from "@/shared/lib";
-import { useCartStore } from "@/shared/store/cart";
 import { PizzaSize, PizzaType } from "@/shared/constants/pizza";
-import { useShallow } from "zustand/shallow";
 import { cn } from "@/shared/lib/utils";
 import { Title } from "./title";
+import { useCart } from "@/shared/hooks";
 
 export const CartDrawer: FC<React.PropsWithChildren> = ({children}) => {
-    const [totalAmount, fetchCartItems, items, updateItemQuantity, removeCartItem] = useCartStore(useShallow(state => [
-        state.totalAmount, 
-        state.fetchCartItems,
-        state.items,
-        state.updateItemQuantity,
-        state.removeCartItem
-    ],));
+    const { totalAmount, updateItemQuantity, items, removeCartItem } = useCart();
+    const [redirecting, setRedirecting] = useState(false);
 
     const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
         const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
         updateItemQuantity(id, newQuantity);
     };
-
-    useEffect(() => {
-        fetchCartItems();
-    }, [])
 
     return (
         <Sheet>
@@ -112,12 +102,12 @@ export const CartDrawer: FC<React.PropsWithChildren> = ({children}) => {
 
                         <Link href="/checkout">
                             <Button
-                            //   onClick={() => setRedirecting(true)}
-                            //   loading={redirecting}
-                            type="submit"
-                            className="w-full h-12 text-base">
-                            Оформить заказ
-                            <ArrowRight className="w-5 ml-2" />
+                                onClick={() => setRedirecting(true)}
+                                loading={redirecting}
+                                type="submit"
+                                className="w-full h-12 text-base">
+                                Оформить заказ
+                                <ArrowRight className="w-5 ml-2" />
                             </Button>
                         </Link>
                         </div>

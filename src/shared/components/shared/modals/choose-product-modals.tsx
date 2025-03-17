@@ -4,12 +4,7 @@ import { Dialog, } from '@/shared/components/ui';
 import { DialogContent } from '@/shared/components/ui/dialog';
 import { cn } from '@/shared/lib/utils';
 import { useRouter } from 'next/navigation';
-import { ChooseProductForm } from '../choose-product-form';
 import { ProductWithRelations } from '@/app/types/prisma';
-import { ChoosePizzaForm } from '../choose-pizza-form';
-import { useCartStore } from '@/shared/store/cart';
-import { useShallow } from 'zustand/shallow';
-import toast from 'react-hot-toast';
 import React from 'react';
 import { ProductForm } from '../product-form';
 
