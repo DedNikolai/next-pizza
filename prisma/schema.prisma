@@ -75,19 +75,19 @@ model Ingredient {
 model Cart {
     id Int @id @default(autoincrement())
 
-    product User? @relation(fields: [userId], references: [id])
-    userId Int? @unique
+    user   User? @relation(fields: [userId], references: [id])
+    userId Int?  @unique
+
+    items CartItem[]
 
     token String
 
     totalAmount Int @default(0)
 
-    items CartItem[]
-
-    createAt DateTime @default(now())
-    updateAt DateTime @updatedAt
-
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
+
 
 model CartItem {
     id Int @id @default(autoincrement())

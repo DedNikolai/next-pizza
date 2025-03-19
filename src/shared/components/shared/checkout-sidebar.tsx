@@ -64,7 +64,7 @@ export const CheckoutSidebar: React.FC<Props> = ({ totalAmount, loading, classNa
         loading={loading}
         type="submit"
         className="w-full h-14 rounded-2xl mt-6 text-base font-bold">
-        Перейти к оплате
+          Pay Order
         <ArrowRight className="w-5 ml-2" />
       </Button>
     </WhiteBlock>

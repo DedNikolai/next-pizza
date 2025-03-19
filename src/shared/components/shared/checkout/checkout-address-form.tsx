@@ -14,12 +14,13 @@ interface Props {
 }
 
 export const CheckoutAddressForm: React.FC<Props> = ({ className }) => {
-  const { control } = useFormContext();
+  const { control, register } = useFormContext();
+
 
   return (
     <WhiteBlock title="3. Адрес доставки" className={className}>
       <div className="flex flex-col gap-5">
-        <Controller
+        {/* <Controller
           control={control}
           name="address"
           render={({ field, fieldState }) => (
@@ -28,12 +29,13 @@ export const CheckoutAddressForm: React.FC<Props> = ({ className }) => {
               {fieldState.error?.message && <ErrorText text={fieldState.error.message} />}
             </>
           )}
-        />
+        /> */}
 
         <FormTextarea
-          name="comment"
+          {...register('address')}
+          id="adress"
           className="text-base"
-          placeholder="Комментарий к заказу"
+          placeholder="Adress"
           rows={5}
         />
       </div>
