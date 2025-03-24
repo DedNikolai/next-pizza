@@ -5,7 +5,7 @@ import { prisma } from "../../../prisma/prisma-client";
 import { OrderStatus } from "@prisma/client";
 import { cookies } from 'next/headers';
 import { sendEmail } from "@/shared/lib/send-email";
-import { PayOrderTemplate } from "@/shared/components/shared/email-temapltes/pay-order";
+import { PayOrderTemplate } from "@/shared/components/shared";
 
 const token = 'test'
 
@@ -78,12 +78,22 @@ export async function createOrder(data: CheckoutFormValues) {
           cartId: userCart.id,
         },
       });
+
+      await sendEmail(
+        data.email,
+        'Next Pizza / Pay order #' + order.id,
+        await PayOrderTemplate({
+          orderId: order.id,
+          totalAmount: order.totalAmount,
+          paymentUrl: 'https://resend.com/'
+        }),
+      );
   
 
-    } catch {
-
+    } catch(error) {
+      console.log(error)
     }
 
 
-    return 'https://nextjs.org/'
+    return 'http://localhost:3000/'
 }

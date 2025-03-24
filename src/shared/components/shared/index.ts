@@ -22,3 +22,4 @@ import {CartDrawer} from './cart-drawer';
 import {WhiteBlock} from './white-block';
 import {CheckoutItem} from './checkout-item';
 import {CheckoutItemSkeleton} from './checkout-item-skeleton';
+export * from './email-temapltes';
