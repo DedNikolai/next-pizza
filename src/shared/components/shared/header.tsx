@@ -13,6 +13,7 @@ import { useSession, signIn } from "next-auth/react";
 import { ProfileButton } from "./profile-button";
 import { AuthModal } from "./modals/auth-modals/auth-modal";
 import React from "react";
+import { useSearchParams } from "next/navigation";
 
 
 interface Props {
@@ -24,8 +25,16 @@ interface Props {
 export const Header: FC<Props> = ({className, hasCart, hasSearch    }) => {
     const {data: session} = useSession();
     const [openAuthModal, setOpenAuthModal] = React.useState(false);
+    const searchParams = useSearchParams();
 
-    console.log(session);
+    React.useEffect(() => {
+        let toastMessage = '';
+    
+        if (searchParams.has('verified')) {
+          toastMessage = 'Почта успешно подтверждена!';
+        }
+    
+      }, []);
     return (
         <header className={cn('border border-b' , className)}>
             <Container className="flex items-center justify-between py-8">
